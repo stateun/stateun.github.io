@@ -21,7 +21,7 @@ title                    : "The AI DevLog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Sungeun Lee"
-description              : "Hello! I am currently a master's student in the Department of Statistics at Seoul National University. "
+description              : " "
 url                      : "https://stateun.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
