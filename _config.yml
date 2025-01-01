@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 # Site Settings
 locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "Data Science & AI Universe"
+title                    : "Data Science & AI Network"
 title_separator          : "-"
 subtitle                 : "Statistics" # site tagline that appears below site title in masthead
 name                     : "Sungeun Lee"
@@ -121,7 +121,7 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:stat.eun1009@gmail.com"
+      # url: "mailto:stat.eun1009@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
