@@ -19,7 +19,7 @@ locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
 title                    : "The AI DevLog"
 title_separator          : "-"
-subtitle                 : "Statistics" # site tagline that appears below site title in masthead
+subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Sungeun Lee"
 description              : "Hello! I am currently a master's student in the Department of Statistics at Seoul National University. "
 url                      : "https://stateun.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
@@ -115,7 +115,7 @@ analytics:
 author:
   name             : "Sung-Eun Lee"
   avatar           : "/assets/picture/picture1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Hello!   I am currently a master's student in the Department of Statistics at Seoul National University."
+  bio              : "Statistics"
   location         : "Seoul, South Korea"
   email            : "stat.eun1009@gmail.com"
   links:
