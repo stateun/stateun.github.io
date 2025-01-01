@@ -117,7 +117,7 @@ author:
   avatar           : "/assets/picture/picture1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Hello!   I am currently a master's student in the Department of Statistics at Seoul National University."
   location         : "Seoul, South Korea"
-  email            : "stat.eun1009@gmail.com"
+  email            : "mailto:stat.eun1009@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
