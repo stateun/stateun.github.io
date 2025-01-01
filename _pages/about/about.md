@@ -6,7 +6,7 @@ author_profile: true
 ---
 
 Hello! My name is Sung Eun Lee, currently pursuing a Master's degree in Statistics at _[Seoul National University](https://stat.snu.ac.kr/)_, where membership in the _[IDEA Lab](https://idea.snu.ac.kr/yongdai-kim/)_ under _advisor Yongdai Kim_ has been a significant part of my academic journey.  
-Beyond academic pursuits, working out—particularly CrossFit—has become a major focus, with active participation in _SNUWOD_. A passionate baseball fan, cheering for the _Samsung Lions_ brings immense joy.  
+Beyond academic pursuits, working out (particularly CrossFit) has become a major focus, with active participation in _SNUWOD_. A passionate baseball fan, cheering for the _Samsung Lions_ brings immense joy.  
 Exploring the potential of Artificial Intelligence is another area of deep interest, primarily through projects and experiments using Python as the main programming tool.
 
 ---
