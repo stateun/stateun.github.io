@@ -19,7 +19,7 @@ locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
 title                    : "Data Science & AI Universe"
 title_separator          : "-"
-subtitle                 : "Deep Learning" # site tagline that appears below site title in masthead
+subtitle                 : "Statistics" # site tagline that appears below site title in masthead
 name                     : "Sungeun Lee"
 description              : "Hello! I am currently a master's student in the Department of Statistics at Seoul National University. "
 url                      : "https://stateun.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
@@ -113,15 +113,15 @@ analytics:
 
 # Site Author
 author:
-  name             : "Sungeun Lee"
+  name             : "Sung-Eun Lee"
   avatar           : "/assets/picture/picture1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Hello! I am currently a master's student in the Department of Statistics at Seoul National University."
-  location         : "1 Gwanak-ro, Gwanak-gu, Seoul, South Korea"
+  bio              : "Hello!   I am currently a master's student in the Department of Statistics at Seoul National University."
+  location         : "Seoul, South Korea"
   email            : "stat.eun1009@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+       url: "stat.eun1009@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -133,7 +133,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+       url: "https://github.com/stateun"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
