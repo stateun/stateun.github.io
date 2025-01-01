@@ -6,12 +6,7 @@ author_profile: true
 ---
 ## Who I Am
 
-Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at Seoul National University.  
-I earned my Bachelor's degree in Statistics from University of Seoul.
-
-In my free time, I enjoy working out, especially CrossFit, which I have been focusing on recently. I am also a big baseball fan, and my favorite team is the Samsung Lions.  
-
-I am passionate about Artificial Intelligence and actively explore its potential using **Python**, my primary programming language.
+Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at _Seoul National University_. I earned my Bachelor's degree in Statistics from _University of Seoul_. In my free time, I enjoy working out, especially CrossFit, which I have been focusing on recently. I am also a big baseball fan, and my favorite team is the _Samsung Lions_.  I am passionate about Artificial Intelligence and actively explore its potential using Python, my primary programming language.
 
 ---
 
