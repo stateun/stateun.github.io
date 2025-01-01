@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "About"
-permalink: https://stateun.github.io/About/
+permalink: /About/
 ---
 
 # About Me
