@@ -115,7 +115,7 @@ analytics:
 author:
   name             : "Sungeun Lee"
   avatar           : "/assets/figure/Me/figure2.JPG" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Statistics"
+  bio              : "_Statistics_"
   location         : "Seoul, South Korea"
   email            : "stat.eun1009@gmail.com"
   links:
