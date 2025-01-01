@@ -1,16 +1,14 @@
 ---
 layout: single
-title: "About"
+title: "About Me"
 permalink: /About/
+author_profile: true
 ---
-
-# About Me
 
 <div style="text-align: center;">
     <img src="/_pages/about/figure/picture1.jpg" alt="Profile Picture" style="width: 30%; border-radius: 10px;">
 </div>
 
-## Sung-Eun Lee
 
 - **Department**: Department of Statistics  
 - **Current**: Master's Student in Statistics, Seoul National University  
