@@ -10,7 +10,7 @@ _I am passionate about Artificial Intelligence and actively explore its potentia
 
 ---
 
-## Research Interests
+# Research Interests
 
 - **Generative Models**  
    Crafting advanced methods for data synthesis and representation learning to enhance real-world applications.  
@@ -18,7 +18,7 @@ _I am passionate about Artificial Intelligence and actively explore its potentia
 - **Anomaly Detection**  
    Detecting and analyzing unusual patterns in data to address complex challenges in diverse domains.  
 
-## Projects
+# Projects
 
 - **National Research Foundation of Korea (NRF)**  
    Master's Research Scholarship Grant  
@@ -28,7 +28,7 @@ _I am passionate about Artificial Intelligence and actively explore its potentia
 
 ---
 
-## Competitions
+# Competitions
 
 - **Seoul National University Bundang Hospital**  
    Development of a Fair AKI Prediction Model  
