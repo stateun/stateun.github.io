@@ -1,6 +1,5 @@
 ---
 layout: single
-title: " "
 permalink: /About/
 author_profile: true
 ---
