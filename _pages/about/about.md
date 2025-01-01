@@ -1,32 +1,38 @@
 ---
 layout: single
-title: "About Me"
+title: "Who I Am"
 permalink: /About/
 author_profile: true
 ---
 
-<div style="text-align: center;">
-    <img src="/_pages/about/figure/picture1.jpg" alt="Profile Picture" style="width: 30%; border-radius: 10px;">
-</div>
+Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at Seoul National University.  
+I earned my Bachelor's degree in Statistics from University of Seoul.
 
+In my free time, I enjoy working out, especially CrossFit, which I have been focusing on recently. I am also a big baseball fan, and my favorite team is the Samsung Lions.  
 
-- **Department**: Department of Statistics  
-- **Current**: Master's Student in Statistics, Seoul National University  
-- **Research Interests**: Deep Learning, AI  
+I am passionate about Artificial Intelligence and actively explore its potential using **Python**, my primary programming language.
 
 ---
 
+## Research Interests
+
+- **Generative Models**  
+   Crafting advanced methods for data synthesis and representation learning to enhance real-world applications.  
+
+- **Anomaly Detection**  
+   Detecting and analyzing unusual patterns in data to address complex challenges in diverse domains.  
+
 ## Projects
 
-1. **National Research Foundation of Korea (NRF)**  
+- **National Research Foundation of Korea (NRF)**  
    Master's Research Scholarship Grant  
 
-2. **Korea Technology & Information Promotion Agency for SMEs (TIPA)**  
+- **Korea Technology & Information Promotion Agency for SMEs (TIPA)**  
    SmartHerb Solution: AI-based Recommendation System  
 
 ---
 
 ## Competitions
 
-1. **Seoul National University Bundang Hospital**  
+- **Seoul National University Bundang Hospital**  
    Development of a Fair AKI Prediction Model  
