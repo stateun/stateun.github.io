@@ -113,7 +113,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Sung-Eun Lee"
+  name             : "Sung Eun Lee"
   avatar           : "/assets/figure/Me/figure2.JPG" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "_Archives_"
   location         : "Seoul, South Korea"
