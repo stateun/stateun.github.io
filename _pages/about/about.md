@@ -5,8 +5,8 @@ permalink: /About/
 author_profile: true
 ---
 
-Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at [Seoul National University](https://stat.snu.ac.kr/), where I am a member of the [IDEA Lab](https://idea.snu.ac.kr/yongdai-kim/) (_advisor: Yongdai Kim_).  
-In my free time, I enjoy working out, especially CrossFit, which I have been focusing on recently and actively participate in through SNUWOD. I am also a big baseball fan, and my favorite team is the Samsung Lions.  
+Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at _[Seoul National University](https://stat.snu.ac.kr/)_, where I am a member of the _[IDEA Lab](https://idea.snu.ac.kr/yongdai-kim/)_ (_advisor: Yongdai Kim_).  
+In my free time, I enjoy working out, especially CrossFit, which I have been focusing on recently and actively participate in through _SNUWOD_. I am also a big baseball fan, and my favorite team is the _Samsung Lions_.  
 I am passionate about Artificial Intelligence and actively explore its potential using Python, my primary programming language.
 
 ---
