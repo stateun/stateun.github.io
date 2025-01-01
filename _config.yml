@@ -20,13 +20,8 @@ rtl                      : # true, false (default) # turns direction of the page
 title                    : "The AI DevLog"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-<<<<<<< HEAD
 name                     : "Sung-Eun Lee"
 description              : "Hello! I am currently a master's student in the Department of Statistics at Seoul National University. "
-=======
-name                     : "Sungeun Lee"
-description              : " "
->>>>>>> fd283f40be695125ef1456c5de54cd7257632a1d
 url                      : "https://stateun.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
