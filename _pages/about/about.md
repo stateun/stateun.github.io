@@ -1,9 +1,10 @@
 ---
 layout: single
-title: "Who I Am"
+title: " "
 permalink: /About/
 author_profile: true
 ---
+## Who I Am
 
 Hello! I am Sung Eun Lee, currently pursuing my Master's degree in Statistics at Seoul National University.  
 I earned my Bachelor's degree in Statistics from University of Seoul.
