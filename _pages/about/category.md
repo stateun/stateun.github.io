@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Categories"
-permalink: /Categories/
+permalink: /Category/
 ---
 
 ## Math
