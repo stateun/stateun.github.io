@@ -1,11 +1,19 @@
 ---
-layout: single
+layout: categories
 title: "Categories"
-permalink: /Categories/
+permalink: /categories/
 author_profile: true
 ---
-## Math
 
-## Deep Learning
-
-## Coding test
+<div class="categories-list">
+  <h2>Explore by Category</h2>
+  <ul>
+    {% for category in site.categories %}
+    <li>
+      <a href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}/">
+        {{ category[0] }}
+      </a> ({{ category[1].size }})
+    </li>
+    {% endfor %}
+  </ul>
+</div>
