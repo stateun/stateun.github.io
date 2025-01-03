@@ -15,6 +15,34 @@
 
     <div class="initial-content">
       {{ content }}
+
+      {% if page.author %}
+      <div class="author-profile">
+        <h3>About the Author</h3>
+        <p><strong>{{ page.author }}</strong></p>
+        <p>Location: Seoul, South Korea</p>
+        <ul>
+          <li><a href="https://github.com/stateun">GitHub</a></li>
+          <li><a href="https://instagram.com/username">Instagram</a></li>
+          <li><a href="mailto:stateun@example.com">Email</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <h3>Posts by {{ page.author }}</h3>
+      <ul>
+        {% for post in site.posts %}
+          {% if post.author == page.author %}
+            <li>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+              <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+      
       {% include after-content.html %}
     </div>
 
