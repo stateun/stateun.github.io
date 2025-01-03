@@ -49,6 +49,21 @@ layout: default
           </aside>
         {% endif %}
         {{ content }}
+
+        {% if page.author_profile and site.author[page.author] %}
+          <div class="author-profile">
+            <img src="{{ site.author[page.author].avatar }}" alt="{{ site.author[page.author].name }}" class="author-profile__image">
+            <h3>{{ site.author[page.author].name }}</h3>
+            <p>{{ site.author[page.author].bio }}</p>
+            <p>Location: {{ site.author[page.author].location }}</p>
+            <ul>
+              <li><a href="{{ site.author[page.author].github }}">GitHub</a></li>
+              <li><a href="{{ site.author[page.author].instagram }}">Instagram</a></li>
+              <li><a href="mailto:{{ site.author[page.author].email }}">Email</a></li>
+            </ul>
+          </div>
+        {% endif %}
+        
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
