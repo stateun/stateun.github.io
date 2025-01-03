@@ -50,19 +50,37 @@ layout: default
         {% endif %}
         {{ content }}
 
-        {% if page.author_profile and site.author[page.author] %}
-          <div class="author-profile">
-            <img src="{{ site.author[page.author].avatar }}" alt="{{ site.author[page.author].name }}" class="author-profile__image">
-            <h3>{{ site.author[page.author].name }}</h3>
-            <p>{{ site.author[page.author].bio }}</p>
-            <p>Location: {{ site.author[page.author].location }}</p>
+        {% if page.author_profile and site.author %}
+        <div class="author-profile">
+          {% assign author_data = site.author[page.author] %}
+          {% if author_data %}
+            {% if author_data.avatar %}
+              <img src="{{ author_data.avatar }}" alt="{{ author_data.name }}" class="author-profile__image">
+            {% endif %}
+            <h3>{{ author_data.name }}</h3>
+            {% if author_data.bio %}
+              <p>{{ author_data.bio }}</p>
+            {% endif %}
+            {% if author_data.location %}
+              <p>Location: {{ author_data.location }}</p>
+            {% endif %}
             <ul>
-              <li><a href="{{ site.author[page.author].github }}">GitHub</a></li>
-              <li><a href="{{ site.author[page.author].instagram }}">Instagram</a></li>
-              <li><a href="mailto:{{ site.author[page.author].email }}">Email</a></li>
+              {% if author_data.github %}
+                <li><a href="{{ author_data.github }}">GitHub</a></li>
+              {% endif %}
+              {% if author_data.instagram %}
+                <li><a href="{{ author_data.instagram }}">Instagram</a></li>
+              {% endif %}
+              {% if author_data.email %}
+                <li><a href="mailto:{{ author_data.email }}">Email</a></li>
+              {% endif %}
             </ul>
-          </div>
-        {% endif %}
+          {% else %}
+            <p>Author information is not available.</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      
         
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
