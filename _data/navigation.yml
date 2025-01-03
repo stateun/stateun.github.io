@@ -2,7 +2,7 @@
 main:
   - title: "About"
     url: https://stateun.github.io/About/
-  - title: "Category"
+  - title: "Categories"
     url: https://stateun.github.io/Category/
   #- title: "Projects"
   #  url: /year-archive/

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Categories"
-permalink: /Category/
+permalink: /Categories/
 author_profile: true
 ---
 ## Math
