@@ -45,19 +45,19 @@ train_data = self._transformer.transform(train_data)
 2. **연속형 변수**: Variational Gaussian Mixture Model (VGM)  
    - 코드에서 `max_cluster` 수를 10으로 설정  
 
-전처리 결과,
-$(32561, 15) \quad \longrightarrow \quad (32561, 156)$
-으로 차원이 증가하는 것을 확인할 수 있습니다.  
+전처리 결과, $(32561, 15) \quad \longrightarrow \quad (32561, 156)$ 으로 차원이 증가하는 것을 확인할 수 있습니다.  
+
 (One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과)
 
 논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
 
-$ \mathbf{r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j} $
+$\mathbf{r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j}$
 
-$ \alpha $: Scaled continuous value  
-$ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)  
-$ N_c $: 연속형 변수 개수  
-$ N_d $: 이산형 변수 개수  
+- $ \alpha $: Scaled continuous value  
+- $ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)  
+- $ N_c $: 연속형 변수 개수  
+- $ N_d $: 이산형 변수 개수  
+
 추가적으로, Normalized 부분은 코드에서 `ClusterBasedNormalier()`를 사용한 것을 확인할 수 있습니다.
 
 ---
