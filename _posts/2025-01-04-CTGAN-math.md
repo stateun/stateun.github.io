@@ -104,7 +104,7 @@ category_id_in_col = self._random_choice_prob_index(discrete_column_id)
 ~~~
 
 이 부분이 **정확히 어떤 category로 Condition을 줄지를 결정**합니다.  
-
+  
 `_random_choice_prob_index()` 함수의 내부를 확인해봅시다.
 
 ~~~python
