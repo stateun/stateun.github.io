@@ -73,6 +73,7 @@ self._data_sampler = DataSampler(
 ~~~
 
 위에서부터 본격적으로 **Condition을 어떻게 주는지** 확인해봅시다.  
+
 조건(Conditional) 벡터를 추출하는 아이디어가 상당히 기발합니다.
 
 ~~~python
@@ -103,6 +104,7 @@ category_id_in_col = self._random_choice_prob_index(discrete_column_id)
 ~~~
 
 이 부분이 **정확히 어떤 category로 Condition을 줄지를 결정**합니다.  
+
 `_random_choice_prob_index()` 함수의 내부를 확인해봅시다.
 
 ~~~python
@@ -162,6 +164,7 @@ for column_info in output_info:
 ~~~
 
 위 과정을 통해 **각 이산형 변수별 category 등장 확률**을 계산하게 됩니다.  
+
 이를 통해 **클래스 불균형(Class Imbalance)** 문제를 완화하기 위해 `log_frequency`(기본값 True)를 사용하여 확률을 조정하는 기법도 확인할 수 있습니다.
 
 #### 3.2.2 `_random_choice_prob_index` 함수 동작
