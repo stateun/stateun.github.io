@@ -43,24 +43,19 @@ train_data = self._transformer.transform(train_data)
 2. **연속형 변수**: Variational Gaussian Mixture Model (VGM)  
    - 코드에서 `max_cluster` 수를 10으로 설정  
 
-전처리 결과,  
-\[
-(32561, 15) \quad \longrightarrow \quad (32561, 156)
-\]  
+전처리 결과,
+$ (32561, 15) \quad \longrightarrow \quad (32561, 156) $
 으로 차원이 증가하는 것을 확인할 수 있습니다 (One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과).
 
-논문에서는 이러한 **전처리 후의 데이터**를 아래와 같은 표기법으로 다룹니다.
+논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
 
-\[
-\mathbf{r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j}
-\]
+$ \mathbf{r}{j} = \alpha{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j} $
 
-- \(\alpha\): **Scaled continuous value**  
-- \(\beta\): **Indicate the mode (VGM에서 어떤 mixture component에 속했는지)**  
-- \(N_c\): **연속형 변수 개수**  
-- \(N_d\): **이산형 변수 개수**  
-
-추가적으로, **Normalized** 부분은 논문에서 `ClusterBasedNormalier()`를 사용했다고 언급되어 있습니다.
+$ \alpha $: Scaled continuous value
+$ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)
+$ N_c $: 연속형 변수 개수
+$ N_d $: 이산형 변수 개수
+추가적으로, Normalized 부분은 논문에서 `ClusterBasedNormalier()`를 사용했다고 언급되어 있습니다.
 
 ---
 
@@ -96,7 +91,7 @@ discrete_column_id = np.random.choice(np.arange(n_discrete_columns), batch)
 discrete_column_id
 ~~~
 
-이는, 우리가 가진 \(N_{d}\)개의 이산형 변수들 중에서 무작위로 `batch`만큼 **이산형 변수를 추출**하겠다는 의미입니다.
+이는, 우리가 가진 $N_{d}$개의 이산형 변수들 중에서 무작위로 `batch`만큼 **이산형 변수를 추출**하겠다는 의미입니다.
 
 ### 3.2 `category_id_in_col` 선택
 
@@ -186,8 +181,8 @@ def _random_choice_prob_index(self, discrete_column_id):
 
 즉, 아래와 같은 방식으로 category를 샘플링합니다.
 
-1. \(\mathbf{r}\) ~ \(U(0,1)\)에서 뽑은 \(\mathbf{r}\)값을 기준으로,  
-2. 각 category 확률의 **누적합**이 \(\mathbf{r}\)를 **초과**하는 첫 번째 index를 찾습니다.  
+1. $\mathbf{r}$ ~ $U(0,1)$ 에서 뽑은 $\mathbf{r}$ 값을 기준으로,  
+2. 각 category 확률의 누적합이 $\mathbf{r}$ 를 초과하는 첫 번째 index를 찾습니다.
 
 이를 통해 **무작위로 category를 선택**하되, 각 category별 **빈도수 기반 확률**로 샘플링하는 효과를 얻을 수 있습니다.
 
@@ -207,10 +202,10 @@ cond[np.arange(batch), category_id] = 1
 
 결과적으로, 이것이 우리가 흔히 말하는 **Conditional Vector**가 됩니다.
 
-\[
+$
 \boxed{
 \text{이로써 CTGAN에서 Discrete Column을 기반으로 Condition을 부여하는 방법을 살펴보았습니다.}
 }
-\]
+$
 
 ---
