@@ -47,17 +47,18 @@ train_data = self._transformer.transform(train_data)
 
 전처리 결과,
 $(32561, 15) \quad \longrightarrow \quad (32561, 156)$
-으로 차원이 증가하는 것을 확인할 수 있습니다 (One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과).
+으로 차원이 증가하는 것을 확인할 수 있습니다.  
+(One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과)
 
 논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
 
-$ \mathbf{r}{j} = \alpha{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j} $
+$ \mathbf{r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j} $
 
-$ \alpha $: Scaled continuous value
-$ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)
-$ N_c $: 연속형 변수 개수
-$ N_d $: 이산형 변수 개수
-추가적으로, Normalized 부분은 논문에서 `ClusterBasedNormalier()`를 사용했다고 언급되어 있습니다.
+$ \alpha $: Scaled continuous value  
+$ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)  
+$ N_c $: 연속형 변수 개수  
+$ N_d $: 이산형 변수 개수  
+추가적으로, Normalized 부분은 코드에서 `ClusterBasedNormalier()`를 사용한 것을 확인할 수 있습니다.
 
 ---
 
@@ -139,12 +140,11 @@ current_id = 0
 current_cond_st = 0
 for column_info in output_info:
     if is_discrete_column(column_info):
-        span_info = column_info[0]  # 예: SpanInfo(dim=9, activation_fn='softmax')
+        span_info = column_info[0] 
         ed = st + span_info.dim
         
         category_freq = np.sum(data[:, st:ed], axis=0)
-        # 이산형 변수(One-hot)의 각 category마다 빈도수를 계산
-        
+
         if log_frequency:
             category_freq = np.log(category_freq + 1)
         
@@ -158,7 +158,6 @@ for column_info in output_info:
         current_id += 1
         st = ed
     else:
-        # 연속형 변수
         st += sum([span_info.dim for span_info in column_info])
 ~~~
 
@@ -169,22 +168,17 @@ for column_info in output_info:
 
 ~~~python
 def _random_choice_prob_index(self, discrete_column_id):
-    # discrete_column_id = np.random.choice(np.arange(n_discrete_columns), batch_size)
     probs = self._discrete_column_category_prob[discrete_column_id]
-    # (batch_size, max_category) 형태
     
     r = np.expand_dims(np.random.rand(probs.shape[0]), axis=1)
-    # 각 row(이산형 변수마다)에 대해 [0, 1] 사이의 random threshold를 생성
     
     return (probs.cumsum(axis=1) > r).argmax(axis=1)
-    # cumsum으로 확률의 누적합을 구하고,
-    # r보다 처음으로 큰 index(= category index)를 찾는다.
 ~~~
 
 즉, 아래와 같은 방식으로 category를 샘플링합니다.
 
-1. $\mathbf{r}$ ~ $U(0,1)$ 에서 뽑은 $\mathbf{r}$ 값을 기준으로,  
-2. 각 category 확률의 누적합이 $\mathbf{r}$ 를 초과하는 첫 번째 index를 찾습니다.
+1. $r^{*}$ ~ $U(0,1)$ 에서 뽑은 $r^{*}$ 값을 기준으로,  
+2. 각 category 확률의 누적합이 $r^{*}$ 를 초과하는 첫 번째 index를 찾습니다.
 
 이를 통해 **무작위로 category를 선택**하되, 각 category별 **빈도수 기반 확률**로 샘플링하는 효과를 얻을 수 있습니다.
 
@@ -202,11 +196,6 @@ cond[np.arange(batch), category_id] = 1
 - 최종적으로, `cond` 행렬 내에서 해당 category의 위치(`category_id`)에 **1**을 대입합니다.  
   - 예: 100번째 category를 선택했다면, `cond[*, 100] = 1`이 되고 나머지는 0이 됩니다.
 
-결과적으로, 이것이 우리가 흔히 말하는 **Conditional Vector**가 됩니다.
+결과적으로, 이것이 우리가 흔히 말하는 CTGAN의 **Conditional Vector**가 됩니다.
 
-$
-\boxed{
-\text{이로써 CTGAN에서 Discrete Column을 기반으로 Condition을 부여하는 방법을 살펴보았습니다.}
-}
-$
 ---
