@@ -51,9 +51,7 @@ train_data = self._transformer.transform(train_data)
 
 논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
 
-$
-\mathbf{r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j}
-$
+$\mathbf {r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j}$
 
 - $ \alpha $: Scaled continuous value  
 - $ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)  
