@@ -1,0 +1,12 @@
+# main links
+main:
+  - title: "About"
+    url: https://stateun.github.io/About/
+  - title: "Categories"
+    url: https://stateun.github.io/Categories/
+  #- title: "Projects"
+  #  url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
