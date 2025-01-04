@@ -8,7 +8,6 @@ categories:
   - Math
 tags:
   - Lipschitz Condition
-  - Gumbel Softmax
   - Variational Gaussian Mixture Model
 permalink: /CTGAN-1/
 ---
