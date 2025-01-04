@@ -4,20 +4,7 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
-
-    <!-- {%if page.use_math %}
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [['$', '$']],
-          displayMath: [['$$', '$$']],
-          processEscapes: true
-        }
-      });
-    </script>
-    {% endif %}
-  </head --> 
+  </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
     {% include_cached skip-links.html %}
@@ -43,11 +30,13 @@
 
     {% include scripts.html %}
 
+    {%- comment -%}
+      페이지의 Front Matter에 use_math: true 가 있을 경우,
+      mathjax-custom.html 를 한 번만 로드합니다.
+    {%- endcomment -%}
     {% if page.use_math %}
       {% include mathjax-custom.html %}
     {% endif %}
-    
+
   </body>
 </html>
-
-
