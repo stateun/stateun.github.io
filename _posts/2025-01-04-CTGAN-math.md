@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[Review] Conditional Part Code 1, CTGAN"
+title: "[Review] Conditional Part , CTGAN"
 date: 2025-01-04
 author_profile: true
 use_math: true
