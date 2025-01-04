@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[Review] CTGAN Code"
+title: "[Review] CTGAN Code 1"
 date: 2025-01-04
 author_profile: true
 use_math: true
