@@ -13,7 +13,8 @@ permalink: /CTGAN-1/
 
 오늘은 **CTGAN Python 코드** 중 **`ctgan.py`** 모듈의 Condition을 부여하는 방법을 리뷰해보겠습니다.  
 CTGAN의 **공식적인 코드**는 아래 주소에서 다운받을 수 있습니다.  
-[CTGAN Official GitHub](https://github.com/sdv-dev/CTGAN)
+[![View on GitHub](https://img.shields.io/badge/GitHub-sdv--dev%2FCTGAN-blue?logo=github&style=flat)](https://github.com/sdv-dev/CTGAN)
+
 
 ---
 
