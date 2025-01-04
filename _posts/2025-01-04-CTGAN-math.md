@@ -180,7 +180,7 @@ def _random_choice_prob_index(self, discrete_column_id):
 
 즉, 아래와 같은 방식으로 category를 샘플링합니다.
 
-1. $r^{*}$ ~ $U(0,1)$ 에서 뽑은 $r^{*}$ 값을 기준으로,  
+1. $r^{*} ~ U(0,1) 에서 뽑은 r^{*}$ 값을 기준으로,  
 2. 각 category 확률의 누적합이 $r^{*}$ 를 초과하는 첫 번째 index를 찾습니다.
 
 이를 통해 **무작위로 category를 선택**하되, 각 category별 **빈도수 기반 확률**로 샘플링하는 효과를 얻을 수 있습니다.
