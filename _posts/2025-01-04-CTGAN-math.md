@@ -12,7 +12,9 @@ permalink: /CTGAN-1/
 ---
 
 오늘은 **CTGAN Python 코드** 중 **`ctgan.py`** 모듈의 Condition을 부여하는 방법을 리뷰해보겠습니다.  
+
 CTGAN의 **공식적인 코드**는 아래 주소에서 다운받을 수 있습니다.  
+
 [![View on GitHub](https://img.shields.io/badge/GitHub-sdv--dev%2FCTGAN-blue?logo=github&style=flat)](https://github.com/sdv-dev/CTGAN)
 
 
@@ -44,7 +46,7 @@ train_data = self._transformer.transform(train_data)
    - 코드에서 `max_cluster` 수를 10으로 설정  
 
 전처리 결과,
-$ (32561, 15) \quad \longrightarrow \quad (32561, 156) $
+$(32561, 15) \quad \longrightarrow \quad (32561, 156)$
 으로 차원이 증가하는 것을 확인할 수 있습니다 (One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과).
 
 논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
@@ -207,5 +209,4 @@ $
 \text{이로써 CTGAN에서 Discrete Column을 기반으로 Condition을 부여하는 방법을 살펴보았습니다.}
 }
 $
-
 ---
