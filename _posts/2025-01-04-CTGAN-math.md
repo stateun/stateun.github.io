@@ -84,3 +84,6 @@ q(\pi, \mu, \Sigma, z) \approx p(\pi, \mu, \Sigma, z \mid X).
 \[
 \text{Through this process, } q \text{ is guided to approximate the true posterior.}
 \]
+
+
+END
