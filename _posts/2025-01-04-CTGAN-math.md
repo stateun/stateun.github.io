@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "[Project] DeepSAD 기반 AKI 예측 및 Fairness Loss 적용"
+title: "SNUBH Datathon : Building Fair Predictive Models - DeepSAD & Fairness"
 date: 2025-01-04
 author_profile: true
 use_math: true
