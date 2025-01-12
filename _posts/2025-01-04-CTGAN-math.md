@@ -1,204 +1,154 @@
 ---
 layout: single
-title: "[Review] Conditional Part , CTGAN"
+title: "[Project] DeepSAD 기반 AKI 예측 및 Fairness Loss 적용"
 date: 2025-01-04
 author_profile: true
 use_math: true
 categories:
   - Code
 tags:
-  - Generative Models
-permalink: /CTGAN-1/
+  - DeepSAD
+  - Fairness
+  - MIMIC-IV
+permalink: /DeepSAD-Fairness/
 ---
 
-오늘은 **CTGAN Python 코드** 중 **`ctgan.py`** 모듈의 Condition을 부여하는 방법을 리뷰해보겠습니다.  
+오늘은 **MIMIC-IV 데이터**를 활용해 **DeepSAD**로 급성 신손상(AKI)을 예측하고, 여기에 **공정성(Fairness) Loss**를 추가하여 새로운 목적함수를 구성한 **프로젝트** 내용을 간단히 공유해보겠습니다.
 
-CTGAN의 **공식적인 코드**는 아래 주소에서 다운받을 수 있습니다.  
-
-[![View on GitHub](https://img.shields.io/badge/GitHub-sdv--dev%2FCTGAN-blue?logo=github&style=flat)](https://github.com/sdv-dev/CTGAN)
-
-
----
-
-## 1. 주요 아이디어: Discrete Column에 Condition을 어떻게 주는가?
-
-CTGAN 코드에서 가장 핵심적인 부분은 **이산형(Discrete) Column에 Condition을 어떻게 부여하는지**입니다.
+[![View on GitHub](https://img.shields.io/badge/GitHub-DeepSAD-red?logo=github&style=flat)](https://github.com/your-repo/DeepSAD_Fairness)  
+_예시 링크입니다._
 
 ---
 
-## 2. 예제 데이터셋: `adult.csv`
+## 1. 프로젝트 개요
 
-- **Feature 개수**: 총 15개  
-  - 이산형 변수(Discrete): 9개  
-  - 연속형 변수(Continuous): 6개
-- **데이터 개수**: 32,561개
+- **프로젝트 목표**  
+  - 급성 신손상(AKI)을 **이상치(Anomaly)** 로 간주하여 **Deep Semi-Supervised Anomaly Detection(DeepSAD)** 모델을 적용  
+  - 특정 인구집단(보호 대상 집단)에 대해 예측이 불리하지 않도록 **공정성(Fairness)** 지표(예: DP, EO)를 반영  
+- **데이터셋**: MIMIC-IV (중환자실 및 병원 입원정보가 포함된 EHR 데이터)  
+- **주요 이슈**:  
+  1. **범주형 변수** → One-hot Encoding 시 차원 폭발  
+  2. **불균형 데이터(약 8:2)**  
+  3. **시계열 특성**(과거 치료가 미래 진단에 영향) & **Censoring**(조기 종료) 이슈  
 
-~~~python
-self._transformer = DataTransformer()
-self._transformer.fit(train_data, discrete_columns)
-train_data = self._transformer.transform(train_data)
-~~~
-
-위 코드는 `train_data`를 다음과 같이 **전처리(Preprocessing)** 합니다.
-
-1. **이산형 변수**: One-hot encoding  
-2. **연속형 변수**: Variational Gaussian Mixture Model (VGM)  
-   - 코드에서 `max_cluster` 수를 10으로 설정  
-
-전처리 결과, $(32561, 15) \quad \longrightarrow \quad (32561, 156)$ 으로 차원이 증가하는 것을 확인할 수 있습니다.  
-
-(One-hot encoding으로 인한 이산형 변수 차원 증가 및 VGM을 통해 얻은 one-hot 벡터, 연속형 변수 scaling 등이 합쳐진 결과)
-
-논문에서는 이러한 전처리 후의 데이터를 아래와 같은 표기법으로 다룹니다.
-
-$$\mathbf {r}_{j} = \alpha_{1,j} \oplus \beta_{1,j} \oplus \alpha_{N_c, j} \oplus \cdots \oplus d_{1,j} \oplus d_{N_d, j}$$
-
-- $ \alpha $: Scaled continuous value  
-- $ \beta $: Indicate the mode (VGM에서 어떤 mixture component에 속했는지)  
-- $ N_c $: 연속형 변수 개수  
-- $ N_d $: 이산형 변수 개수  
-
-추가적으로, Normalized 부분은 코드에서 `ClusterBasedNormalier()`를 사용한 것을 확인할 수 있습니다.
+이후, 각 단계별로 전처리와 모델링, 그리고 공정성 로스를 더한 **최종 목적함수**를 살펴보겠습니다.
 
 ---
 
-## 3. Condition을 부여하는 핵심 파트
+## 2. MIMIC-IV 데이터 간략 소개
 
-~~~python
-self._data_sampler = DataSampler(
-    train_data, 
-    self._transformer.output_info_list, 
-    self._log_frequency
-)
-~~~
+> **MIMIC-IV**: 환자 개인정보가 제거된 상태로 공개된 전자 건강 기록(EHR) 데이터셋  
+> - **환자 수**: 약 364,627명  
+> - **입원 건수**: 546,028번 + ICU 입원 94,458번  
+> - **전체 이벤트**: 43,000,000개 이상  
 
-위에서부터 본격적으로 **Condition을 어떻게 주는지** 확인해봅시다.  
+### 주요 테이블
 
-조건(Conditional) 벡터를 추출하는 아이디어가 상당히 기발합니다.
-
-~~~python
-cond = np.zeros((batch, self._n_categories), dtype='float32')
-
-discrete_column_id = np.random.choice(np.arange(self._n_discrete_columns), batch)
-category_id_in_col = self._random_choice_prob_index(discrete_column_id)
-category_id = self._discrete_column_cond_st[discrete_column_id] + category_id_in_col
-
-cond[np.arange(batch), category_id] = 1
-~~~
-
-위 코드들을 하나씩 살펴보겠습니다.
-
-### 3.1 `discrete_column_id` 선택
-
-~~~python
-discrete_column_id = np.random.choice(np.arange(n_discrete_columns), batch)
-discrete_column_id
-~~~
-
-이는, 우리가 가진 $N_{d}$개의 이산형 변수들 중에서 무작위로 `batch`만큼 **이산형 변수를 추출**하겠다는 의미입니다.
-
-### 3.2 `category_id_in_col` 선택
-
-~~~python
-category_id_in_col = self._random_choice_prob_index(discrete_column_id)
-~~~
-
-이 부분이 **정확히 어떤 category로 Condition을 줄지를 결정**합니다.  
-  
-`_random_choice_prob_index()` 함수의 내부를 확인해봅시다.
-
-~~~python
-def _random_choice_prob_index(self, discrete_column_id):
-    probs = self._discrete_column_category_prob[discrete_column_id]
-    r = np.expand_dims(np.random.rand(probs.shape[0]), axis=1)
-    return (probs.cumsum(axis=1) > r).argmax(axis=1)
-~~~
-
-#### 3.2.1 `self._discrete_column_category_prob`
-
-여기서 `self._discrete_column_category_prob`를 먼저 살펴봐야 합니다.
-
-~~~python
-max_category = max(
-    [column_info[0].dim for column_info in output_info if is_discrete_column(column_info)],
-    default=0,
-)
-
-self._discrete_column_category_prob = np.zeros((n_discrete_columns, max_category))
-~~~
-
-- **`max_category`**: 모든 이산형 변수 중에서 **가장 많은 category**를 갖는 변수의 category 수  
-- `self._discrete_column_category_prob`는 (이산형 변수 수, max_category) 형태의 **확률**을 저장하는 배열입니다.
-
-> **Note**  
-> "만약 어떤 이산형 변수가 8개의 category를 갖고 있는데, `max_category`가 10개이면?"  
-> → 해당 변수에서 존재하지 않는 category에 대한 확률은 **0**으로 처리됩니다.
-
-~~~python
-self._discrete_column_category_prob = np.zeros((n_discrete_columns, max_category))
-
-st = 0
-current_id = 0
-current_cond_st = 0
-for column_info in output_info:
-    if is_discrete_column(column_info):
-        span_info = column_info[0] 
-        ed = st + span_info.dim
-        
-        category_freq = np.sum(data[:, st:ed], axis=0)
-
-        if log_frequency:
-            category_freq = np.log(category_freq + 1)
-        
-        category_prob = category_freq / np.sum(category_freq)
-        self._discrete_column_category_prob[current_id, : span_info.dim] = category_prob
-        
-        self._discrete_column_cond_st[current_id] = current_cond_st
-        self._discrete_column_n_category[current_id] = span_info.dim
-        
-        current_cond_st += span_info.dim
-        current_id += 1
-        st = ed
-    else:
-        st += sum([span_info.dim for span_info in column_info])
-~~~
-
-위 과정을 통해 **각 이산형 변수별 category 등장 확률**을 계산하게 됩니다.  
-
-이를 통해 **클래스 불균형(Class Imbalance)** 문제를 완화하기 위해 `log_frequency`(기본값 True)를 사용하여 확률을 조정하는 기법도 확인할 수 있습니다.
-
-#### 3.2.2 `_random_choice_prob_index` 함수 동작
-
-~~~python
-def _random_choice_prob_index(self, discrete_column_id):
-    probs = self._discrete_column_category_prob[discrete_column_id]
-    
-    r = np.expand_dims(np.random.rand(probs.shape[0]), axis=1)
-    
-    return (probs.cumsum(axis=1) > r).argmax(axis=1)
-~~~
-
-즉, 아래와 같은 방식으로 category를 샘플링합니다.
-
-1. 각 $$r^{*}$$ ~ $U(0,1)$ 에서 뽑은 $$r^{*}$$ 값을 기준으로,  
-2. 각 category 확률의 누적합이 $r^{*}$ 를 초과하는 첫 번째 index를 찾습니다.
-
-이를 통해 **무작위로 category를 선택**하되, 각 category별 **빈도수 기반 확률**로 샘플링하는 효과를 얻을 수 있습니다.
-
-### 3.3 최종 Condition 벡터 생성
-
-~~~python
-category_id_in_col = self._random_choice_prob_index(discrete_column_id)
-category_id = self._discrete_column_cond_st[discrete_column_id] + category_id_in_col
-
-cond[np.arange(batch), category_id] = 1
-~~~
-
-- **`self._discrete_column_cond_st`**: 각 이산형 변수(One-hot encoding)에서 **시작 위치**를 의미  
-  - 예: 첫 번째 이산형 변수의 one-hot 위치가 0~8, 두 번째 이산형 변수가 9~24, ... 와 같은 식  
-- 최종적으로, `cond` 행렬 내에서 해당 category의 위치(`category_id`)에 **1**을 대입합니다.  
-  - 예: 100번째 category를 선택했다면, `cond[*, 100] = 1`이 되고 나머지는 0이 됩니다.
-
-결과적으로, 이것이 우리가 흔히 말하는 CTGAN의 **Conditional Vector**가 됩니다.
+- **Admissions**: 각 입원에 대한 정보 (입원 시각, 퇴원 시각, 입원유형 등)
+- **Diagnoses-ICD**: ICD 진단코드(진단명)
+- **Labevents**: 다양한 검사 결과(실험실 측정치)
+- **DRGcodes**: 입원 사유, 심각성(severity) 및 사망률(mortality)에 대한 분류 코드
+- **Prescriptions**: 처방된 약물 기록 (본 프로젝트에서는 활용 X)
+- **Microbiology**: 감염성 검사 정보(균 배양, 항생제 내성 등)
+- ... (ICU 모니터링 데이터, I/O 이벤트 등 다수)
 
 ---
+
+## 3. 데이터 전처리
+
+### 3.1 Admissions
+- **입원부터 퇴원까지 시간**: \(\text{dischtime} - \text{admittime}\) → `hrs` 변수 생성  
+- **범주형 변수** (입원유형, 입원위치, 퇴원위치 등) → One-hot Encoding
+
+### 3.2 Diagnoses-ICD
+- **d-icd-diagnoses** 테이블에서 `long-title`에 `"acute kidney failure"` 키워드 포함 → AKI 라벨(1) 부여  
+- 기타 라벨(0)은 해당 키워드가 없는 경우
+
+### 3.3 Labevents
+1. AKI vs. 비AKI 환자 각각에서 **검사 코드** 빈도를 비교  
+2. **모비율 차 검정**으로 p-value < 0.05인 코드만 추출  
+3. 검사 빈도가 평균 이상인 코드만 최종 선택  
+4. 각 환자 입원건마다 (미검사=0 / 정상=1 / 비정상=2) 형태로 라벨링
+
+\[
+\mathbf{x}_{\text{lab}}^{(i)} = \bigl( x_{lab_1}^{(i)}, x_{lab_2}^{(i)}, \cdots, x_{lab_m}^{(i)} \bigr), 
+\quad x_{lab_j}^{(i)} \in \{0, 1, 2\}
+\]
+
+위와 같이 환자( \(i\) )별로 검사( \(j\) ) 결과를 정리할 수 있습니다.
+
+### 3.4 DRGcodes
+- 주요 DRG-code 88개 추출 (각 코드에 대한 One-hot / 라벨링)
+- **심각도(`drg-severity`)**, **사망률(`drg-mortality`)**도 함께 사용
+
+### 3.5 Microbiology
+- `test-itemid`, `org-itemid`, `ab-itemid`를 합쳐 6,478가지 검사 식별  
+- Labevents와 동일한 통계 검정 → **621개**만 선택  
+- (미검사=0 / 항생제 민감=1 / 중간=2 / 내성=3)
+
+---
+
+## 4. 모델: DeepSAD
+
+**DeepSAD**는 **SVDD(Support Vector Data Description)**를 확장한 **반지도 학습(세미-슈퍼바이즈) 이상 탐지 기법**입니다.
+
+### 4.1 기본 아이디어
+
+- **정상 데이터**: 임베딩 공간 상에서 특정 중심 \(\mathbf{c}\)에 모이도록  
+- **이상치(여기서는 AKI 데이터)**: 중심에서 멀어지도록 학습  
+- 임베딩을 수행하는 **딥 뉴럴 네트워크**를 \(\mathbf{f}_\theta(\cdot)\)라 할 때, 표준적인 DeepSAD의 손실함수는 대략 아래와 같이 표현됩니다:
+
+$$
+\mathcal{L}_{\text{DeepSAD}} 
+= \sum_{i=1}^{N} \Bigl\| \mathbf{f}_{\theta} \bigl(\mathbf{x}^{(i)}\bigr) - \mathbf{c} \Bigr\|^2 
+\;+\; \lambda \|\theta\|^2.
+$$
+
+- \(\mathbf{c}\): 정상 데이터가 몰려야 하는 **중심(centroid)**  
+- \(\theta\): 딥 뉴럴 네트워크의 파라미터  
+- \(\lambda\): 정규화 계수
+
+### 4.2 Fairness Loss 추가
+
+**공정성(Fairness) 지표**로는 주로 **DP(Demographic Parity)**, **EO(Equalized Odds)** 등을 사용합니다.  
+- **DP**: 보호 대상 집단 vs. 비보호 대상 집단의 **예측 양성 비율**이 유사해야 함  
+- **EO**: 실제 양성/음성에 대해 **집단 간 예측 양성 비율**이 유사해야 함  
+
+이를 **손실항(\(\mathcal{L}_{\text{Fair}}\))**으로 추가하여, 최종 목적함수를 다음과 같이 정의합니다:
+
+$$
+\mathcal{L}_{\text{DeepSAD+Fair}} 
+= \mathcal{L}_{\text{DeepSAD}} 
++ \alpha \times \mathcal{L}_{\text{Fair}},
+$$
+
+- \(\alpha\): DeepSAD 로스와 Fairness 로스 간의 **균형 계수**
+
+---
+
+## 5. 적용 시 문제점 & 고찰
+
+1. **차원 폭발**: 범주형 변수가 많은 테이블을 One-hot 인코딩 시 컬럼 수가 수천 개 이상 → 모델 학습에 어려움  
+2. **불균형 데이터(8:2)**: 이상치(1)와 정상(0)의 비율이 완전 극단적이진 않지만, **이상치 간주**에는 다소 애매  
+3. **시계열 특성**: 과거 진단/치료가 미래에 영향을 주지만, 단일 이벤트 단위로만 처리 → 정보 손실  
+4. **Censoring**: 관찰 종료 전 진단이 확정되지 않은 경우 → 학습에 왜곡 발생
+
+---
+
+## 6. 프로젝트 결론
+
+본 **프로젝트**에서 **DeepSAD**를 사용해 MIMIC-IV 데이터 상 **AKI를 이상치**로 보고 탐지 모델을 구성해보았으나, 실제 의료 데이터의 특성(고차원·시계열·검사 시점 불일치 등)으로 인해 **모델 성능 개선**에 추가적인 접근이 필요함을 확인했습니다. 또한, 특정 집단의 불이익을 줄이기 위해 **공정성(Fairness) 로스**를 도입하는 아이디어를 실험적으로 적용했습니다.
+
+앞으로는  
+- **시계열 모델**(RNN, Transformer 등)  
+- **Feature Selection** 또는 **차원 축소 기법**  
+- **Censoring 처리** (생존분석, 시간가중 방식 등)  
+등을 추가 적용해볼 필요가 있습니다.
+
+---
+
+### 참고 링크
+- [MIMIC-IV 공식 사이트](https://mimic.mit.edu/)  
+- [DeepSAD 원문 논문](https://arxiv.org/abs/2003.12753)  
+
+이상으로, **MIMIC-IV 기반 AKI 예측**에 **DeepSAD + Fairness Loss**를 적용한 **프로젝트** 내용을 정리해보았습니다.
