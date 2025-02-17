@@ -54,9 +54,9 @@ Hello! My name is Sung Eun Lee, and I am currently pursuing a Master's degree in
 
 ## Additional Information
 
-- **Programming Languages**: 
+- **Programming Languages**:  
    Python  
 
-- **Language Proficiency**: 
-   OPIC : Intermediate High
+- **Language Proficiency**:  
+   OPIC : Intermediate High  
    TOEIC : 950
