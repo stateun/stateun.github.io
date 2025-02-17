@@ -5,19 +5,22 @@ permalink: /About/
 author_profile: true
 ---
 
-Hello! My name is Sung Eun Lee, currently pursuing a Master's degree in Statistics at _[Seoul National University](https://stat.snu.ac.kr/)_, where membership in the _[IDEA Lab](https://idea.snu.ac.kr/yongdai-kim/)_ under _advisor Yongdai Kim_ has been a significant part of my academic journey.  
-Beyond academic pursuits, working out (particularly CrossFit) has become a major focus, with active participation in _SNUWOD_. A passionate baseball fan, cheering for the _Samsung Lions_ brings immense joy.  
-Exploring the potential of Artificial Intelligence is another area of deep interest, primarily through projects and experiments using Python as the main programming tool.
+Hello! My name is Sung Eun Lee, and I am currently pursuing a Master's degree in Statistics at _[Seoul National University](https://stat.snu.ac.kr/)_. I am a member of the _[IDEA Lab](https://idea.snu.ac.kr/yongdai-kim/)_ under the guidance of _Professor Yongdai Kim_, where I actively engage in research to advance my academic and professional expertise.  
 
 ---
 
 ## Research Interests
 
-- **Generative Models**  
-   Crafting advanced methods for data synthesis and representation learning to enhance real-world applications.  
-
 - **Anomaly Detection**  
    Detecting and analyzing unusual patterns in data to address complex challenges in diverse domains.  
+
+- **Fairness in AI**  
+   Developing equitable AI models to mitigate biases and ensure responsible deployment.  
+
+- **Large Language Models (LLM)**  
+   Exploring the capabilities and improvements of large-scale language models for various applications.  
+
+---
 
 ## Projects
 
@@ -25,7 +28,7 @@ Exploring the potential of Artificial Intelligence is another area of deep inter
    Master's Research Scholarship Grant  
 
 - **Korea Technology & Information Promotion Agency for SMEs (TIPA)**  
-   SmartHerb Solution: AI-based Recommendation System  
+   SmartHerb Solution: AI-based Recommendation System and API-based Prompt Engineering  
 
 ---
 
@@ -33,3 +36,23 @@ Exploring the potential of Artificial Intelligence is another area of deep inter
 
 - **Seoul National University Bundang Hospital**  
    Development of a Fair AKI Prediction Model  
+
+- **DB Insurance & Finance Competition (Ongoing)**  
+   - **Our Topic**: Vehicle Fraud Detection via XAI Graph Model
+
+---
+
+## Extracurricular Activities
+
+- **SNUWOD** (CrossFit Club)  
+   - **Activity Period**: Fall 2024, Spring 2025  
+
+- **SNU Buddy** (Exchange Student Cultural Exchange Organization)  
+   - **Activity Period**: Spring 2025  
+
+---
+
+## Additional Information
+
+- **Programming Languages**: Python  
+- **Language Proficiency**: TOEIC 950, OPIC IH  
