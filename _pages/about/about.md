@@ -38,21 +38,21 @@ Hello! My name is Sung Eun Lee, and I am currently pursuing a Master's degree in
    Development of a Fair AKI Prediction Model  
 
 - **DB Insurance & Finance Competition (Ongoing)**  
-   - **Our Topic**: Vehicle Fraud Detection via XAI Graph Model
+   Vehicle Fraud Detection via XAI Graph Model
 
 ---
 
 ## Extracurricular Activities
 
 - **SNUWOD** (CrossFit Club)  
-   - **Activity Period**: Fall 2024, Spring 2025  
+   Activity Period: Fall 2024, Spring 2025  
 
 - **SNU Buddy** (Exchange Student Cultural Exchange Organization)  
-   - **Activity Period**: Spring 2025  
+   Activity Period: Spring 2025  
 
 ---
 
 ## Additional Information
 
-- **Programming Languages**: Python  
-- **Language Proficiency**: TOEIC 950, OPIC IH  
+- Programming Languages: Python  
+- Language Proficiency: TOEIC 950, OPIC IH  
