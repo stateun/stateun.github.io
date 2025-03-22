@@ -12,7 +12,7 @@ tags:
 permalink: /Instruct GPT/
 ---
 
-# Link : 🔗 [arXiv: 2203.02155](https://arxiv.org/abs/2203.02155)
+### Link 🔗 :  [Instruct GPT](https://arxiv.org/abs/2203.02155)
 
 ## 1. 논문 개요
 기존 대규모 언어 모형(GPT-3 등)은 사용자의 의도를 충분히 반영하지 못하며, 왜곡, 독성 언어 생성, 비효율적 응답 등 여러 문제점을 내포하고 있음이 확인되었다.
