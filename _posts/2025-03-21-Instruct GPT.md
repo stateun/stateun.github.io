@@ -23,7 +23,7 @@ permalink: /Instruct GPT/
 3. 방법론 (SFT → RM → RLHF)
 본 논문은 세 단계의 학습 과정을 통해 모델을 점진적으로 정렬한다.
 
-![InstructGPT 학습 과정](/images/InstructGPT/1.PNG)
+![InstructGPT 학습 과정](/images/Instruct_GPT/1.PNG)
 
 Supervised Fine-Tuning (SFT)
 
@@ -60,7 +60,7 @@ Reinforcement Learning from Human Feedback (RLHF) via PPO
 
 데이터 수집 및 분할:
 
-![InstructGPT Data Set](/images/InstructGPT/2.PNG)
+![InstructGPT Data Set](/images/Instruct_GPT/2.PNG)
 
 프롬프트 데이터셋:
 - OpenAI API를 통해 실제 고객 프롬프트와 라벨러가 작성한 프롬프트를 수집
