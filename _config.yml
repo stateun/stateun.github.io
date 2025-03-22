@@ -118,7 +118,7 @@ author:
   avatar           : "/assets/figure/Me/figure2.JPG" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "_Archives_"
   location         : "Seoul, South Korea"
-  email            : "stat.eun1009@gmail.com"
+  # email            : "stat.eun1009@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
