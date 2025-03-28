@@ -14,7 +14,7 @@ tags:
 permalink: /improving-llm-group-fairness/
 ---
 
-### Link 🔗 : Improving LLM Group Fairness on Tabular Data via In-Context Learning
+### Link 🔗 : [Improving LLM Group Fairness on Tabular Data via In-Context Learning](https://arxiv.org/abs/2412.04642)
 
 ## 1. 논문 개요
 최근 대규모 언어 모형(LLM)은 적은 학습 데이터 상황에서도 탭형 데이터에 대한 예측 성능을 보여주지만, 동일한 입력 조건에서 남녀 등 민감 속성에 따른 예측 불균형(그룹 공정성) 문제가 발생하는 것으로 나타났다. 본 논문은 LLM의 in-context learning 기법을 활용하여, 별도의 대규모 학습 데이터 없이도 예측 시 그룹 간의 긍정 라벨 비율을 균형 있게 맞추기 위한 네 가지 방법론을 제안한다.
@@ -74,19 +74,24 @@ Fair Few-Shot Examples 방법론 실험에서는 민감 속성(Sensitive attribu
 - 평가 지표 : 
   - Demographic Parity (DP) : 남성과 여성 간 긍정 예측 비율의 균형 정도를 측정한다.
 
-  For a binary predictor \( f: \mathcal{X} \to \{0, 1\} \) and a sensitive attribute \( G \) (e.g., gender), DP requires that the probability of a positive prediction is independent of \( G \). This is defined as:
-  \[
+  Binary Classifier \( f: \mathcal{X} \to \{0, 1\} \)와 민감 속성 \( G \) (예: 성별)을 고려할 때,  
+  Demographic Parity는 다음 수식으로 정의됩니다:
+
+  $$
   E[f(X) \mid G = g] = E[f(X)]
-  \]
-  for every group \( g \) in the domain of \( G \).
+  $$
+
+  모든 집단 \( g \)에 대해 위 식이 성립해야 합니다.  
 
   - Equalized Odds (EO) : 오분류율이 민감 집단 간에 균형을 이루는지를 평가한다.
 
-  For the same binary predictor \( f \) and the true label \( Y \in \{0, 1\} \), EO requires that the predictor’s performance is the same across groups, meaning that both the true positive rate and the false positive rate are equal for all groups. Formally, this is defined as:
-  \[
+  Binary Classifier \( f \)와 실제 정답 \( Y \in \{0, 1\} \)에 대해, Equalized Odds는 다음과 같이 정의됩니다:
+
+  $$
   E[f(X) \mid G = g, Y = y] = E[f(X) \mid Y = y]
-  \]
-  for every group \( g \) and for both \( y = 0 \) and \( y = 1 \).
+  $$
+
+  모든 그룹 \( g \)과 모든 정답값 \( y = 0, 1 \)에 대해 위 식이 성립해야 합니다.  
 
 - 비교 모델 : CatBoost와 같은 전통적 테이블 데이터 모델과 다양한 LLM 기반 접근법을 비교 평가하였다.
 
