@@ -74,24 +74,7 @@ Fair Few-Shot Examples 방법론 실험에서는 민감 속성(Sensitive attribu
 - 평가 지표 : 
   - Demographic Parity (DP) : 남성과 여성 간 긍정 예측 비율의 균형 정도를 측정한다.
 
-  Binary Classifier \( f: \mathcal{X} \to \{0, 1\} \)와 민감 속성 \( G \) (예: 성별)을 고려할 때,  
-  Demographic Parity는 다음 수식으로 정의됩니다:
-
-  $$
-  E[f(X) \mid G = g] = E[f(X)]
-  $$
-
-  모든 집단 \( g \)에 대해 위 식이 성립해야 합니다.  
-
   - Equalized Odds (EO) : 오분류율이 민감 집단 간에 균형을 이루는지를 평가한다.
-
-  Binary Classifier \( f \)와 실제 정답 \( Y \in \{0, 1\} \)에 대해, Equalized Odds는 다음과 같이 정의됩니다:
-
-  $$
-  E[f(X) \mid G = g, Y = y] = E[f(X) \mid Y = y]
-  $$
-
-  모든 그룹 \( g \)과 모든 정답값 \( y = 0, 1 \)에 대해 위 식이 성립해야 합니다.  
 
 - 비교 모델 : CatBoost와 같은 전통적 테이블 데이터 모델과 다양한 LLM 기반 접근법을 비교 평가하였다.
 
