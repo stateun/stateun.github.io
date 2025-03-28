@@ -64,7 +64,7 @@ Fair Few-Shot Examples 방법론 실험에서는 민감 속성(Sensitive attribu
 
 ![Results based on the ratio of sensitive attributes](/images/Improving_LLM_Group_Fairness/3.PNG)
 
-위의 결과는 Self-regining에 대한 성능 테이블이다.
+위의 결과는 Self-Refining에 대한 성능 테이블이다.
 
 ## 4. 실험 셋팅 및 평가
 
